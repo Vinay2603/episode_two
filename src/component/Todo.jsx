@@ -2,11 +2,14 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
-import { addTodoError, addTodoLoading, addTodoSuccess, getTodoError, getTodoLoading, getTodoSuccess } from "../store/action"
+import { addTodoError, addTodoLoading, addTodoSuccess, getTodoError, getTodoLoading, getTodoSuccess } from "../features/Todo/action"
 
 export const Todos=()=>{
     const [text,setText] = useState("")
-     const {todos,loading,error} = useSelector((state)=> ({ todos: state.todos,loading:state.loading,error:state.error}))
+     const {todos,loading,error} = useSelector((state)=> ({ 
+       todos: state.todoState.todos,
+       loading:state.todoState.loading,
+       error:state.todoState.error  }))
     // console.log(todos)
      const dispatch = useDispatch()
 
