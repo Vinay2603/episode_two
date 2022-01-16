@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
-import { addTodoError, addTodoLoading, addTodoSuccess, getTodoError, getTodoLoading, getTodoSuccess } from "../features/Todo/action"
+import { addTodoError, addTodoLoading, addTodoSuccess, getTodoError, getTodoLoading, getTodoSuccess ,getData } from "../features/Todo/action"
 
 export const Todos=()=>{
     const [text,setText] = useState("")
@@ -17,19 +17,23 @@ useEffect(()=>{
     getTodo()
 },[])
 
-const getTodo =()=>{
-    dispatch(getTodoLoading())
-    axios.get('http://localhost:3001/todos')
-    .then(function (response) {
-      // handle success
-     // console.log(response.data);
-      dispatch(getTodoSuccess(response.data))
-    })
-    .catch(function (error) {
-      // handle error
-      //console.log(error);
-      dispatch(getTodoError(error))
-    })
+ const getTodo =()=>{
+
+    dispatch(getData())
+
+    // dispatch(getTodoLoading())
+    // axios.get('http://localhost:3001/todos')
+    // .then(function (response) {
+    //   // handle success
+    //  // console.log(response.data);
+    //   dispatch(getTodoSuccess(response.data))
+    //  // getTodo()
+    // })
+    // .catch(function (error) {
+    //   // handle error
+    //   //console.log(error);
+    //   dispatch(getTodoError(error))
+    // })
    
 }
 
@@ -47,6 +51,7 @@ const getTodo =()=>{
               .then(function (response) {
                 console.log(response.data);
                 dispatch(addTodoSuccess(response.data))
+                dispatch(getData())
               })
               .catch(function (error) {
                 console.log(error);

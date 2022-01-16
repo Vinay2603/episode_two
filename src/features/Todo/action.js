@@ -7,7 +7,7 @@ import {ADD_TODO_LOADING,
     GET_TODO_SUCCESS,
     GET_TODO_ERROR} from "./actionType";
 
-
+    import axios from "axios"
 
 const addTodoLoading =()=>{
     return{
@@ -50,7 +50,21 @@ const getTodoError =(err)=>{
     }
 }
 
+const getData=()=>(dispatch)=>{
+     dispatch(getTodoLoading())
+    axios.get('http://localhost:3001/todos')
+    .then(function (response) {
+      // handle success
+     // console.log(response.data);
+      dispatch(getTodoSuccess(response.data))
+     // getTodo()
+    })
+    .catch(function (error) {
+      // handle error
+      //console.log(error);
+      dispatch(getTodoError(error))
+    })
+}
 
 
-
-export {addTodoError,addTodoSuccess, addTodoLoading , getTodoLoading , getTodoSuccess , getTodoError}
+export {addTodoError,addTodoSuccess, addTodoLoading , getTodoLoading , getTodoSuccess , getTodoError ,getData}
